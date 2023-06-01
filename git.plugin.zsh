@@ -1,23 +1,27 @@
 # Aliases
 #############
 
-alias g='git'
+# alias g='git'
+alias galias='git_list_aliases'
 
 alias ga='git add'
 alias gaa='git add --all'
-alias gai='git add --interactive'
-alias galias='git_list_aliases'
+# alias gai='git add --interactive'
+
 # Amend the most recent local commit:
 alias gam='git commit --amend -m' # Only change commit message (optionally 'git add' files)
 alias gama='git commit --amend -am' # Add all modified files and change commit message
-alias gan='git commit --amend --no-edit' # Keep commit message (optionally 'git add' files)
-alias gana='git commit --amend --no-edit -a' # Add all modified files, but keep commit message
-alias gap='git add --patch'
+# alias gan='git commit --amend --no-edit' # Keep commit message (optionally 'git add' files)
+# alias gana='git commit --amend --no-edit -a' # Add all modified files, but keep commit message
+# alias gap='git add --patch'
 
 alias gb='git branch'
-alias gba='git branch --all'
+alias gba='git branch --all | cat'
+alias gbr='git branch --remotes | cat'
 alias gbd='git branch --delete'
 alias gbdf='git branch --delete --force'
+alias gbls='git branch --list | cat'
+
 alias gbl='git blame'
 # 'git blame' that optionally takes line numbers:
 # Usage: gbll <file> [<from line>] [<to line>]
@@ -26,7 +30,7 @@ alias gbl='git blame'
 #      = gbll README.md 10,10
 #      = git blame README.md -L 10,10
 alias gbll='git_blame_line'
-alias gbls='git branch --list | cat'
+
 alias gbs='git bisect'
 alias gbsb='git bisect bad'
 alias gbsg='git bisect good'
@@ -34,38 +38,44 @@ alias gbsr='git bisect reset'
 alias gbss='git bisect start'
 
 alias gc='git commit --verbose'
-alias gcam='git commit -am'
-alias gcame='git commit --allow-empty-message -am ""'
-alias gcamg='git commit --gpg-sign -am'
-alias gcams='git commit --signoff -am'
-alias gcamu='git commit -am "Update"'
-alias gcem='git commit --allow-empty -m'
-alias gcf='git config'
-alias gcfl='git config --list'
-alias gcfls='git config --list | cat'
-alias gcl='git clone --recurse-submodules'
-alias gclcd='git_clone_and_cd'
 alias gcm='git commit -m'
 alias gcmg='git commit --gpg-sign -m'
 alias gcms='git commit --signoff -m'
+alias gcma='git commit -ma'
+alias gcmae='git commit --allow-empty-message -ma ""'
+alias gcmag='git commit --gpg-sign -ma'
+alias gcmas='git commit --signoff -ma'
+alias gcmau='git commit -ma "Update"'
+alias gcme='git commit --allow-empty -m'
+
+alias gcf='git config'
+# alias gcfl='git config --list'
+alias gcfls='git config --list | cat'
+
+alias gcl='git clone'
+alias gclrs='git clone --recurse-submodules'
+alias gclcd='git_clone_and_cd'
+
 # Count the number of commits on a branch:
 alias gcnt='git_count'
 alias gcnta='git_count_all'
+
 alias gco='git checkout'
 alias gcob='git checkout -b'
 alias gcobb='git checkout -' # "checkout branch before"
+alias gcom='git checkout $(git_main_branch)'
+alias gcod='git checkout develop'
 # Check out a child commit:
 # Usage: gcoc [<number of commits after HEAD>]
 #   E.g. gcoc = gcoc 1   => checks out direct child
 #               gcoc 2   => checks out grandchild
 alias gcoc='git_checkout_child'
-alias gcod='git checkout develop'
-alias gcom='git checkout $(git_main_branch)'
 # Check out a parent commit:
 # Usage: gcop [<number of commits before HEAD>]
 #   E.g. gcop = gcop 1   => checks out direct parent
 #               gcop 2   => checks out grandparent
 alias gcop='git_checkout_parent'
+
 alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
 alias gcpc='git cherry-pick --continue'
@@ -109,7 +119,6 @@ alias gloc='git_locate_string'
 # Regular 'git log' in style:
 alias glog='git log --date=format:"%A %B %d %Y at %H:%M" --pretty=format:"%C(yellow)%H%Creset%x09%C(bold green)%D%Creset%n%<|(40)%C(white)%ad%x09%an%Creset%n%n    %C(bold)%s%Creset%n%w(0,4,4)%n%-b%n"' # %w(0,4,4): no line-wrap, indent first line 4 chars, subsequent lines also 4 lines
 alias glr='glog --reverse --name-status'
-alias gls='git ls-files'
 
 alias gm='git merge'
 alias gmom='git merge origin/$(git_main_branch)'
@@ -120,9 +129,11 @@ alias gp='git push'
 alias gpd='git push --delete'
 alias gpdo='git push --delete origin'
 alias gpf='git push --force-with-lease'
-alias gpt='git push && git push --tags'
+# alias gpt='git push && git push --tags'
+
 alias gpl='git pull'
 alias gplr='git pull --rebase'
+alias gplrm='git pull origin master --rebase'
 alias gplrs='git pull --recurse-submodules'
 
 # `grhard` is intentionally more verbose because `--hard` is unsafe;
@@ -131,28 +142,34 @@ alias gplrs='git pull --recurse-submodules'
 # but abort if a file has uncommitted changes.
 # Having to type 'grhard' in full will make us think twice
 # about whether we REALLY want to get rid of all dirty files.
-alias gr='git reset --mixed' # Keep changes, but unstage them (`--mixed` = default behaviour)
-alias grhard='git reset --hard' # Remove changes, including anything uncommitted (Dangerous!)
+alias gr='git reset'
+alias grm='git reset --mixed' # Keep changes, but unstage them (`--mixed` = default behaviour)
+alias grh='git reset --hard' # Remove changes, including anything uncommitted (Dangerous!)
 alias grk='git reset --keep' # Safer version of `--hard`: reset is aborted if a file is dirty
 alias grs='git reset --soft' # Keep changes, and keep them staged
 # Reset HEAD to a previous commit:
 # Usage: grh [<number of commits before HEAD>]
 #   E.g. grh = grh 1   => Reset HEAD to previous commit
 #              grh 2   => Reset HEAD 2 commits
-alias grh='git_reset_head --mixed'
-alias grhhard='git_reset_head --hard'
+alias grhm='git_reset_head --mixed'
+alias grhh='git_reset_head --hard'
 alias grhk='git_reset_head --keep'
 alias grhs='git_reset_head --soft'
+
 alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
 alias grbm='git rebase $(git_main_branch)'
-alias grem='git remote'
-alias grema='git remote add'
-alias gremrm='git remote rm'
-alias gremset='git remote set-url'
-alias gremsh='git remote show'
-alias gremv='git remote -v'
+
+alias grm='git remote'
+alias grma='git remote add'
+alias grmrm='git remote rm'
+alias grmsu='git remote set-url'
+alias grmsh='git remote show'
+alias grmv='git remote -v'
+
 alias grl='git reflog' # Useful to restore lost commits after reset
-alias grm='git rm'
+# alias grm='git rm'
 
 # Yes, I am aware gs is commonly aliased to ghostscript,
 # but since my usage of ghostscript is rare compared to git,
@@ -163,6 +180,7 @@ alias gsh='git show --date=format:"%A %B %d %Y at %H:%M" --pretty=format:"%C(yel
 # Usage: gshsf <file> [<stash number>]
 alias gshsf='git_show_stash_file'
 alias gss='git_status_short' # Usage: gss [<number of commits>]
+
 alias gst='git stash'
 alias gsta='git stash apply'
 alias gstd='git stash drop'
@@ -174,6 +192,7 @@ alias gstpop='git stash pop'
 alias gstsl='git stash show -l' # = git diff stash@{0}
 # Show the diff between latest stash and its original parent commit:
 alias gstsp='git stash show -p' # = git diff stash@{0}^! = git diff stash@{0}^ stash@{0}
+
 alias gsub='git submodule'
 alias gsuba='git submodule add'
 alias gsubi='git submodule update --init' # Initialize submodules
@@ -183,10 +202,10 @@ alias gsubs='git submodule status'
 alias gsubu='git submodule update --remote --merge' # Update submodules
 
 alias gt='git tag'
-alias gtam='git tag -am' # <- takes message before annotated tag name: e.g. gtam 'Release v1.0.0' v1.0.0
-alias gtsm='git tag -sm' # GPG sign an annotated tag
+alias gtma='git tag -ma' # <- takes message before annotated tag name: e.g. gtam 'Release v1.0.0' v1.0.0
+alias gtms='git tag -ms' # GPG sign an annotated tag
 alias gtd='git tag --delete'
-alias gtl='git tag --list'
+# alias gtl='git tag --list'
 alias gtls='git tag --list | cat'
 
 alias gwch='git whatchanged -p --date=format:"%A %B %d %Y at %H:%M" --pretty=format:"%n%n%C(yellow)%H%Creset%x09%C(bold green)%D%Creset%n%<|(40)%C(white)%ad%x09%an%Creset%n%n    %C(bold)%s%Creset%n%w(0,4,4)%+b%n"'
@@ -261,7 +280,7 @@ function git_count_all() {
 
 # List all git aliases from the README:
 function git_list_aliases() {
-  filename=~/.oh-my-zsh/custom/plugins/git/README.md
+  filename=~/.oh-my-zsh/custom/plugins/git-custom/README.md
   from=$(grep -Fno '| **g** ' ${filename} | cut -f1 -d:)
   stop=$(grep -no '&nbsp;' ${filename} | cut -f1 -d:)
   to=$((stop - 2))
